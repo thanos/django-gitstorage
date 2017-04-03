@@ -94,7 +94,7 @@ class ObjectViewMixin(object):
 
     def get_context_data(self, **kwargs):
         """Context variables for any type of Git object and on every page."""
-        context = super().get_context_data(**kwargs)
+        context = super(ObjectViewMixin, self).get_context_data(**kwargs)
 
         root_trees = self.filter_trees(Path(""))
 
@@ -140,7 +140,7 @@ class ObjectViewMixin(object):
         logger.debug("calling check_permissions %s", self.check_permissions)
         self.check_permissions()
 
-        return super().dispatch(request, path, *args, **kwargs)
+        return super(ObjectViewMixin, self).dispatch(request, path, *args, **kwargs)
 
 
 class BlobViewMixin(ObjectViewMixin):
@@ -189,7 +189,7 @@ class DeleteViewMixin(BlobViewMixin):
     def form_valid(self, form):
         self.storage.delete(self.path)
 
-        return super().form_valid(form)
+        return super(DeleteViewMixin, self).form_valid(form)
 
 
 class TreeViewMixin(ObjectViewMixin):
@@ -228,7 +228,7 @@ class TreeViewMixin(ObjectViewMixin):
         return sorted(blobs, key=operator.itemgetter('name'))
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super(TreeViewMixin, self).get_context_data(**kwargs)
         context['trees'] = self.filter_trees(self.path)
         context['blobs'] = self.filter_blobs()
         return context
@@ -249,7 +249,7 @@ class UploadViewMixin(TreeViewMixin):
         metadata.fill(self.storage.repository, f.name, blob)
         metadata.save()
 
-        return super().form_valid(form)
+        return super(UploadViewMixin, self).form_valid(form)
 
 
 class SharesViewMixin(TreeViewMixin):
@@ -265,7 +265,7 @@ class SharesViewMixin(TreeViewMixin):
         users = form.cleaned_data['users']
         models.TreePermission.objects.remove(users, self.path)
 
-        return super().form_valid(form)
+        return super(SharesViewMixin, self).form_valid(form)
 
 
 class ShareViewMixin(TreeViewMixin):
@@ -281,7 +281,7 @@ class ShareViewMixin(TreeViewMixin):
         users = form.cleaned_data['users']
         models.TreePermission.objects.add(users, self.path)
 
-        return super().form_valid(form)
+        return super(ShareViewMixin, self).form_valid(form)
 
 
 class AdminPermissionMixin(object):

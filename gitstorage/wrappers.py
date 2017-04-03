@@ -44,7 +44,7 @@ class BlobWrapper(object):
 class Repository(pygit2.Repository):
 
     def __init__(self, *args):
-        super().__init__(*args)
+        super(Repository, self).__init__(*args)
         assert self.is_bare
         # Always load the index
         self.index.read_tree(self.tree.id)

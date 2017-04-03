@@ -35,7 +35,7 @@ class BaseViewTestCase(VanillaRepositoryMixin, TestCase):
     path = None
 
     def setUp(self):
-        super().setUp()
+        super(BaseViewTestCase, self).setUp()
         self.storage = storage.GitStorage(self.location)
 
         if self.path is None:
@@ -103,7 +103,7 @@ class UploadViewTestCase(BaseViewTestCase):
     path = "foo/bar/baz"
 
     def setUp(self):
-        super().setUp()
+        super(UploadViewTestCase, self).setUp()
         # A blob found in the path
         self.blob = self.storage.repository.open("foo/bar/baz/qux.txt")
         self.blob_metadata = factories.BlobMetadataFactory(id=self.blob.hex)
@@ -224,7 +224,7 @@ class TreeViewTestCase(BaseViewTestCase):
     path = "foo/bar/baz"
 
     def setUp(self):
-        super().setUp()
+        super(TreeViewTestCase, self).setUp()
         # A blob found in the path
         self.blob = self.storage.repository.open("foo/bar/baz/qux.txt")
         self.blob_metadata = factories.BlobMetadataFactory(id=self.blob.hex)
@@ -283,7 +283,7 @@ class AdminPermissionTestCase(BaseViewTestCase):
     path = ""
 
     def setUp(self):
-        super().setUp()
+        super(AdminPermissionTestCase, self).setUp()
         # A blob found at the root
         self.blob = self.storage.repository.open("foo.txt")
         self.blob_metadata = factories.BlobMetadataFactory(id=self.blob.hex)
@@ -304,7 +304,7 @@ class CoverageTestCase(VanillaRepositoryMixin, TestCase):
     """Edge cases to reach 100 % coverage."""
 
     def setUp(self):
-        super().setUp()
+        super(CoverageTestCase, self).setUp()
         self.storage = storage.GitStorage(self.location)
 
     def test_initkwargs(self):
