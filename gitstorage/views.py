@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright Bors LTD
 # This file is part of django-gitstorage.
 #
