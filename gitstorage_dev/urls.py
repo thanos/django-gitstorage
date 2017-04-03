@@ -1,9 +1,10 @@
-from django.conf.urls import url
-
+from django.conf.urls import include, url
+from django.contrib import admin
 from .tests import views
 
 urlpatterns = [
     # Blob views
+    url(r'^admin/', include(admin.site.urls)),  
     url(r'^(?P<path>.+)/;preview$', views.TestPreviewView.as_view(), name='blob_preview'),
     url(r'^(?P<path>.+)/;download$', views.TestDownloadView.as_view(), name='blob_download'),
     url(r'^(?P<path>.+)/;delete$', views.TestDeleteView.as_view(), name='blob_delete'),
@@ -14,3 +15,5 @@ urlpatterns = [
     # Browse/catch-all view
     url(r'^(?P<path>.*)$', views.TestRepositoryView.as_view(), name='repo_browse'),
 ]
+
+ 
