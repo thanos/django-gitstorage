@@ -13,10 +13,10 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with django-gitstorage.  If not, see <http://www.gnu.org/licenses/>.
-
+import six
 import io
 import os
-from urllib.parse import urljoin
+from six.moves.urllib import parse  
 
 from django.apps import apps
 from django.core.exceptions import ImproperlyConfigured
